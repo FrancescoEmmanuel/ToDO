@@ -1,5 +1,5 @@
 import React,{Children} from 'react';
-import "../index.css";
+// import "../app.css";
 
 const btnTypes = {
     add:"add",

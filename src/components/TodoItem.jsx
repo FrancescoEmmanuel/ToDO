@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
-function TodoItem({ completed, id, title, date, type, description, toggleTodo, deleteTodo }) {
+function TodoItem({ completed, id, title, date, type, description, toggleTodo, deleteTodo, handleUpdate }) {
   const dateTime = new Date(date);
 
   // Format date and time separately
@@ -37,7 +37,7 @@ function TodoItem({ completed, id, title, date, type, description, toggleTodo, d
         <div className="flex flex-col overflow-hidden w-full" onClick={handleExpand}>
           <div className="grid grid-cols-[auto_1fr] gap-3 overflow-hidden w-full">
             <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl text-white">{title}</span>
-            <span className="justify-self-end overflow-hidden text-ellipsis whitespace-nowrap">{type}</span>
+            <span className="justify-self-end overflow-hidden text-ellipsis whitespace-nowrap text-sm">{type.toUpperCase()}</span>
           </div>
           <div className="flex items-center">
             <span className="mr-2 text-sm text-slate-400">To be done by:</span>
@@ -45,11 +45,15 @@ function TodoItem({ completed, id, title, date, type, description, toggleTodo, d
               <div className="text-sm text-slate-400">{formattedDate}</div>
               <div className="text-sm text-slate-400">{formattedTime}</div>
             </div>
-            <button className="ml-auto text-red-600 scale-90">
+            <button className="ml-auto text-blue-500 " onClick={handleUpdate}>
+            <FontAwesomeIcon icon={faPencilAlt}/>
+            </button>
+            <button className="ml-3 text-red-600 ">
               <FontAwesomeIcon icon={faTrash} onClick={() => deleteTodo(id)} />
             </button>
+            
             <div className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2">
-              <FontAwesomeIcon icon={faChevronDown} onClick={handleExpand} className="scale-75"/>
+              <FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} onClick={handleExpand} className="scale-75"/>
             </div>
           </div>
         </div>
